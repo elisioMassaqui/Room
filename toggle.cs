@@ -6,7 +6,7 @@ using TMPro;
 using System.IO.Ports;
 public class toggle : MonoBehaviour
 {
-    public SerialPort serialPort = new SerialPort("COM9", 9600);
+    public SerialPort serialPort = new SerialPort("COM17", 9600);
     public Toggle toggle01;
     public TMP_Text counting;
     public float numberCount;
@@ -18,6 +18,7 @@ public class toggle : MonoBehaviour
     void Start()
     {
         slidervelocityCount.value = 15f;
+        serialPort.Open();
     }
 
     // Update is called once per frame
@@ -28,28 +29,42 @@ public class toggle : MonoBehaviour
         velocityCount = slidervelocityCount.value;
 
         counting.text = $"Contando >> {numberCount}";
-      
+
+        ativarLed();
     }
 
-    public void contarButton(){
+    public void ativarLed(){
 
-         if (toggle01.isOn == true)
-        {
             StartCoroutine(trocarEstado());
             numberCount += 1f * velocityCount * Time.deltaTime;
+        if (toggle01.isOn == true)
+        {
+            toggle01.interactable = false;
+            if (serialPort.IsOpen)
+            {
+                try
+                {
+                    serialPort.WriteLine("B");
+                }
+                catch (System.Exception)
+                {
+                    
+                    throw;
+                }
+            }
         }
     }
 
     IEnumerator trocarEstado(){
 
-            yield return new WaitForSeconds(10f);
-            numberCount = 0;
-            toggle01.isOn = false;
-            toggle01.interactable = false;
-            serialPort.WriteLine("A");
-            yield return new WaitForSeconds(1f);
-            numberCount = 0;
+        while (true)
+        {
+            yield return new WaitForSeconds(100f);
             toggle01.isOn = false;
             toggle01.interactable = true;
+            numberCount = 0; 
+        }
+
+            
     }
 }
