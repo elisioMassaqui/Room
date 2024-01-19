@@ -8,7 +8,6 @@ public class toggle : MonoBehaviour
 {
     public SerialPort serialPort = new SerialPort("COM9", 9600);
     public Toggle toggle01;
-    public GameObject gameObjectToggle;
     public TMP_Text counting;
     public float numberCount;
 
@@ -48,11 +47,9 @@ public class toggle : MonoBehaviour
             toggle01.isOn = false;
             toggle01.interactable = false;
             serialPort.WriteLine("A");
-            gameObjectToggle.SetActive(false);
             yield return new WaitForSeconds(1f);
             numberCount = 0;
             toggle01.isOn = false;
             toggle01.interactable = true;
-            gameObjectToggle.SetActive(true);
     }
 }
