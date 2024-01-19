@@ -41,15 +41,17 @@ public class toggle : MonoBehaviour
     }
 
     IEnumerator trocarEstado(){
-            
+
             yield return new WaitForSeconds(10f);
             numberCount = 0;
             toggle01.isOn = false;
             toggle01.interactable = false;
-            serialPort.WriteLine('A');
+            serialPort.WriteLine("A");
+            toggle01.SetActive(false);
             yield return new WaitForSeconds(1f);
             numberCount = 0;
             toggle01.isOn = false;
-            toggle01.interactable = true;  
+            toggle01.interactable = true;
+            toggle01.SetActive(true);
     }
 }
