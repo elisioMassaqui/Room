@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using System.IO.Ports;
 public class toggle : MonoBehaviour
 {
+    public SerialPort serialPort = new SerialPort("COM9", 9600);
     public Toggle toggle01;
     public TMP_Text counting;
     public float numberCount;
@@ -35,21 +36,20 @@ public class toggle : MonoBehaviour
          if (toggle01.isOn == true)
         {
             StartCoroutine(trocarEstado());
-            numberCount += 1f * velocityCount;
+            numberCount += 1f * velocityCount * Time.deltaTime;
         }
     }
 
     IEnumerator trocarEstado(){
-
-            yield return new WaitForSeconds(5f);
+            
+            yield return new WaitForSeconds(10f);
             numberCount = 0;
             toggle01.isOn = false;
             toggle01.interactable = false;
-            yield return new WaitForSeconds(0.1f);
+            serialPort.WriteLine('A');
+            yield return new WaitForSeconds(1f);
             numberCount = 0;
             toggle01.isOn = false;
-            toggle01.interactable = true;
-
-       
+            toggle01.interactable = true;  
     }
 }
