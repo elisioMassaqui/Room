@@ -45,7 +45,9 @@ public class toggle : MonoBehaviour
             numberCount = 0;
             toggle01.isOn = false;
             toggle01.interactable = false;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.1f);
+            numberCount = 0;
+            toggle01.isOn = false;
             toggle01.interactable = true;
 
        
