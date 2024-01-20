@@ -40,6 +40,8 @@ public class ToggleController : MonoBehaviour
             toggleTimer += Time.deltaTime;
             numberCount += 1f * velocityCount * Time.deltaTime;
 
+            StartCoroutine(trocarEstado());
+
             if (toggleTimer >= toggleDuration)
             {
                 toggle01.isOn = false;
@@ -55,29 +57,28 @@ public class ToggleController : MonoBehaviour
 
     public void ativarLed()
     {
-        StartCoroutine(trocarEstado());
 
         if (toggle01.isOn && !isToggleActive)
         {
             isToggleActive = true;
             toggle01.interactable = false;
+        }
+    }
 
-            if (serialPort.IsOpen)
+    IEnumerator trocarEstado()
+    {
+          if (serialPort.IsOpen)
             {
                 try
                 {
-                    serialPort.WriteLine("B");
+                    serialPort.Write("B");
+                    Debug.Log("Enviando Signal");
                 }
                 catch (System.Exception)
                 {
                     throw;
                 }
             }
-        }
-    }
-
-    IEnumerator trocarEstado()
-    {
-        yield return null; // Mantém o método Coroutine, mas não faz nada.
+        yield return new WaitForSeconds(0.1f);
     }
 }
