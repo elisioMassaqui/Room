@@ -19,7 +19,7 @@ public class ToggleController : MonoBehaviour
     private float toggleTimer = 0f;
     private const float toggleDuration = 10f;
 
-    // Start is called before the first frame update
+    // Start is called before the first frame update.
     void Start()
     {
         slidervelocityCount.value = 15f;
