@@ -17,7 +17,7 @@ public class ToggleController : MonoBehaviour
 
     private bool isToggleActive = false;
     private float toggleTimer = 0f;
-    private const float toggleDuration = 10f;
+    private const float toggleDuration = 5f;
 
     // Start is called before the first frame update.
     void Start()
@@ -38,6 +38,7 @@ public class ToggleController : MonoBehaviour
         if (isToggleActive)
         {
             toggleTimer += Time.deltaTime;
+            numberCount += 1f * velocityCount * Time.deltaTime;
 
             if (toggleTimer >= toggleDuration)
             {
@@ -55,7 +56,6 @@ public class ToggleController : MonoBehaviour
     public void ativarLed()
     {
         StartCoroutine(trocarEstado());
-        numberCount += 1f * velocityCount * Time.deltaTime;
 
         if (toggle01.isOn && !isToggleActive)
         {
