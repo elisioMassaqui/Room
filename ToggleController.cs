@@ -10,11 +10,11 @@ public class ToggleController : MonoBehaviour
     public SerialPort serialPort = new SerialPort("COM17", 9600);
     public Toggle toggle01;
     public TMP_Text counting;
+
     public float numberCount;
-
     public float velocityCount;
-    public Slider slidervelocityCount;
 
+    public Slider slidervelocityCount;
     private bool isToggleActive = false;
     private float toggleTimer = 0f;
     private const float toggleDuration = 5f;
@@ -35,6 +35,8 @@ public class ToggleController : MonoBehaviour
 
         counting.text = $"Contando >> {numberCount}";
 
+                ativarLed();
+
         if (isToggleActive)
         {
             toggleTimer += Time.deltaTime;
@@ -52,7 +54,6 @@ public class ToggleController : MonoBehaviour
             }
         }
 
-        ativarLed();
     }
 
     public void ativarLed()
